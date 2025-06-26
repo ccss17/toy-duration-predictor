@@ -1,12 +1,3 @@
----
-title: Toy Duration Predictor
-emoji: 😻
-colorFrom: blue
-colorTo: gray
-sdk: docker
-pinned: false
-license: apache-2.0
----
 
 # Toy Duration Predictor Model
 
@@ -28,4 +19,5 @@ import toy_duration_predictor as tdp
 
 - Model: https://huggingface.co/ccss17/toy-duration-predictor
 - Dataset: https://huggingface.co/datasets/ccss17/note-duration-dataset
-- Spaces: https://huggingface.co/spaces/ccss17/toy-duration-predictor
+- Spaces(**live demo**): https://huggingface.co/spaces/ccss17/toy-duration-predictor
+
