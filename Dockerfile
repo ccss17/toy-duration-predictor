@@ -24,7 +24,7 @@ RUN pip install --no-cache-dir --upgrade -r requirements.txt
 COPY --chown=user:user . .
 
 # Step 9: Define the default command to run when the Space starts.
-# --- THE FIX IS HERE ---
-# We add `--ServerApp.tornado_settings` to override the security policy
-# and allow the JupyterLab interface to be embedded in an iframe.
-CMD ["python", "-m", "jupyterlab", "--ip=0.0.0.0", "--port=7860", "--NotebookApp.token=''", "--ServerApp.tornado_settings", "{\"headers\": {\"Content-Security-Policy\": \"frame-ancestors * 'self'\"}}"]
+# --- THE FINAL FIX IS HERE ---
+# We add `--ServerApp.disable_check_xsrf=True` to tell the server not to
+# require the security token that is being blocked by the iframe.
+CMD ["python", "-m", "jupyterlab", "--ip=0.0.0.0", "--port=7860", "--NotebookApp.token=''", "--ServerApp.allow_origin='*'", "--ServerApp.allow_remote_access=True", "--ServerApp.disable_check_xsrf=True"]
