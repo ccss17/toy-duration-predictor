@@ -11,14 +11,12 @@ RUN useradd -m -u 1000 user
 USER user
 
 # Step 5: Set the PATH environment variable to include the user's local bin directory.
-# This is where pip will install command-line tools like jupyter.
 ENV PATH="/home/user/.local/bin:${PATH}"
 
 # Step 6: Set the working directory to a new directory in the user's home.
 WORKDIR /home/user/app
 
 # Step 7: Copy the requirements file and install packages as the new user.
-# The --chown flag ensures the 'user' owns the copied file.
 COPY --chown=user:user requirements.txt .
 RUN pip install --no-cache-dir --upgrade -r requirements.txt
 
@@ -26,5 +24,7 @@ RUN pip install --no-cache-dir --upgrade -r requirements.txt
 COPY --chown=user:user . .
 
 # Step 9: Define the default command to run when the Space starts.
-# We no longer need --allow-root because we are not the root user.
-CMD ["python", "-m", "jupyterlab", "--ip=0.0.0.0", "--port=7860", "--NotebookApp.token=''"]
+# --- THE FIX IS HERE ---
+# We add `--ServerApp.tornado_settings` to override the security policy
+# and allow the JupyterLab interface to be embedded in an iframe.
+CMD ["python", "-m", "jupyterlab", "--ip=0.0.0.0", "--port=7860", "--NotebookApp.token=''", "--ServerApp.tornado_settings", "{\"headers\": {\"Content-Security-Policy\": \"frame-ancestors * 'self'\"}}"]
