@@ -14,6 +14,7 @@ dependencies = [
     "lightning>=2.5.2",
     "midii>=0.1.19",
     "numpy>=2.0.2",
+    "optuna>=4.4.0",
     "pandas>=2.3.0",
     "ray[data,serve,train,tune]>=2.47.1",
     "torch>=2.7.1",

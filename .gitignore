@@ -10,6 +10,11 @@ sample/gv/split_json
 sample/mssv/preprocessed
 preprocessed_gv/
 preprocessed_mssv/
+model_stable/
+model_optuna_5/
+model_optuna_10/
+*/**/*.pth
+model_optuna_10/model_A.pth
 
 # Python-generated files
 __pycache__/
