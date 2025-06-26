@@ -12,10 +12,10 @@ BATCH_SIZE = 64
 
 MODEL_CONFIG = {
     "num_singers": 18,
-    "singer_embedding_dim": 64,
-    "hidden_size": 1024,
-    "num_layers": 4,
-    "dropout": 0.5,
+    "singer_embedding_dim": 32,
+    "hidden_size": 256,
+    "num_layers": 3,
+    "dropout": 0.4,
 }
 
 LEARNING_RATE = 1e-4

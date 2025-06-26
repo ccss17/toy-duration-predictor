@@ -14,3 +14,9 @@ pip install git+https://github.com/ccss17/toy-duration-predictor.git
 ```python
 import toy_duration_predictor as tdp
 ```
+
+## Hugging Face 
+
+- Model: https://huggingface.co/ccss17/toy-duration-predictor
+- Dataset: https://huggingface.co/datasets/ccss17/note-duration-dataset
+- Spaces: https://huggingface.co/spaces/ccss17/toy-duration-predictor

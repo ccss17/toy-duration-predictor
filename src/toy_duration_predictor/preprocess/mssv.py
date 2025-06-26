@@ -137,7 +137,7 @@ def process_midi_flat_map(row: Dict[str, Any]) -> List[Dict[str, Any]]:
 
 
 def preprocess_dataset(midi_file_directory, output_parquet_path):
-    context = ray.init()
+    context = ray.init(ignore_reinit_error=True)
     print(context.dashboard_url)
 
     all_midi_paths = Path(midi_file_directory).rglob("*.mid")
