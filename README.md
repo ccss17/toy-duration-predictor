@@ -18,7 +18,6 @@ preprocess SVS dataset with [midii](https://github.com/ccss17/midii)
 pip install git+https://github.com/ccss17/toy-duration-predictor.git
 ```
 
-
 ## Usage
 
 ```python
