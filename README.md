@@ -1,3 +1,13 @@
+---
+title: Toy Duration Predictor
+emoji: 😻
+colorFrom: blue
+colorTo: gray
+sdk: docker
+pinned: false
+license: apache-2.0
+---
+
 # Toy Duration Predictor Model
 
 preprocess SVS dataset with [midii](https://github.com/ccss17/midii) 
