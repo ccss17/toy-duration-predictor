@@ -12,15 +12,6 @@ def get_files(dir_path, type, sort=False):
         return paths
 
 
-def _preprocess_remove_front_back_silence(df):
-    is_valid_lyric = df["lyric"] != " "
-    valid_indices = df.index[is_valid_lyric].tolist()
-    first_valid_idx = valid_indices[0]
-    last_valid_idx = valid_indices[-1]
-    df = df.iloc[first_valid_idx : last_valid_idx + 1].reset_index(drop=True)
-    return df
-
-
 def _preprocess_sort_by_start_time(df):
     df = df.sort_values(by="start_time").reset_index(drop=True)
     return df

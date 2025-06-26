@@ -1,5 +1,6 @@
 from toy_duration_predictor.preprocess import mssv
-import toy_duration_predictor.train_fastai as train_fastai
+from toy_duration_predictor.load import load_and_test
+import toy_duration_predictor.upload as ul
 
 
 def preprocessing():
@@ -8,10 +9,7 @@ def preprocessing():
     mssv.preprocess_dataset(mssv_path, mssv_preprocessed_path)
 
 
-def test_train():
-    train_fastai.test_train()
-
-
 if __name__ == "__main__":
     # preprocessing()
-    test_train()
+    ul.upload_models_to_hub()
+    load_and_test()

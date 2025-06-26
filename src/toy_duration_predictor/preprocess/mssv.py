@@ -116,10 +116,6 @@ def preprocess_notes(notes, ticks_per_beat, unit="32"):
 
 
 def process_midi_flat_map(row: Dict[str, Any]) -> List[Dict[str, Any]]:
-    """
-    Processes a single file path. Returns a list containing one dictionary on success,
-    or an empty list on failure. Designed for use with flat_map().
-    """
     file_path_str = row["path"]
     try:
         mssv_sample_list, ticks_per_beat = midi_to_note_list(file_path_str)
@@ -136,53 +132,19 @@ def process_midi_flat_map(row: Dict[str, Any]) -> List[Dict[str, Any]]:
                 "singer_id": singer_id,
             }
         ]
-    except Exception as e:
-        print(f"CRITICAL ERROR processing {file_path_str}: {e}")
+    except Exception:
         return []
 
 
 def preprocess_dataset(midi_file_directory, output_parquet_path):
     context = ray.init()
     print(context.dashboard_url)
-    print(f"Ray cluster started: {ray.cluster_resources()}")
 
-    all_midi_paths = list(Path(midi_file_directory).rglob("*.mid"))
-    print(f"Found {len(all_midi_paths)} MIDI files to process.")
-
-    # --- Step 2: Create a dataset of file paths ---
-    # This is the idiomatic way. We create a dataset where each row is a path.
-    # We pass a list of dictionaries to give the column a name: "path".
-    print("Creating initial dataset of file paths...")
+    all_midi_paths = Path(midi_file_directory).rglob("*.mid")
     ds = ray.data.from_items([{"path": str(p)} for p in all_midi_paths])
 
-    # --- Step 3: Use .map() to process files in parallel ---
-    # .map() applies the function to each row of the dataset in parallel.
-    # Ray Data manages the tasks, memory, and scheduling for you.
-    print("Applying parallel processing function using .map()...")
     processed_ds = ds.flat_map(process_midi_flat_map)
-
-    # --- Step 4: Filter out any rows that failed ---
-    # Our function returns an empty dict on failure, so we filter those out.
-    # processed_ds = processed_ds.filter(lambda row: row)
-
-    # Now, let's inspect the schema of the PROCESSED dataset
-    print("\nProcessed Dataset schema:")
-    print(processed_ds.schema())  # Corrected print statement
-
-    print("\nFirst 1 rows of processed data:")
-    processed_ds.show(1)
-
-    # You chose to repartition to 1, which is fine if the total dataset is < 1GB.
-    # This will create a single Parquet file in the output directory.
-    print("Repartitioning dataset...")
     processed_ds = processed_ds.repartition(num_blocks=1)
-
-    print(f"\nWriting dataset to Parquet format at: {output_parquet_path}")
     processed_ds.write_parquet(output_parquet_path)
-
-    # This will now show the correct number of processed files (rows in the dataset)
-    print(
-        f"\nProcessing complete! {processed_ds.count()} files successfully processed."
-    )
 
     ray.shutdown()

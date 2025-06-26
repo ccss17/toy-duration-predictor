@@ -1,6 +1,6 @@
-# a
+# Toy Duration Predictor Model
 
-aaaaaaaaaa [midii](https://github.com/ccss17/midii) 
+preprocess SVS dataset with [midii](https://github.com/ccss17/midii) 
 
 ## Installation
 

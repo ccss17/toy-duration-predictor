@@ -1,5 +1,9 @@
 uv.lock
 
+hf_upload_staging/
+checkpoints/
+*.pth
+
 wandb/
 toy-duration-predictor-lightning/
 
