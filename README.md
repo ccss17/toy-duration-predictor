@@ -113,7 +113,9 @@ The final evaluation is the most critical part of the experiment. Both the train
 ### Theoretical "Perfect" Result
 
 
-* A perfect **Model A** (the copycat) would output the quantized input, resulting in an MAE equal to the average quantization error of the dataset. The 1/32 quantization produces a timing distortion of approximately 3.78 ticks on average, so the theoretical performance upper bound of Model A is about **3.78 ticks**.
+
+* A perfect **Model A** (the copycat) would output the quantized input, resulting in an MAE equal to the average quantization error of the dataset. **In the dataset used for this experiment, the 1/32 quantization distorted the original performance by an average of 3.78 ticks, so the theoretical performance upper bound of Model A is about 3.78 ticks.**
+
 
 * A perfect **Model B** (the artist) would perfectly reconstruct the original performance, resulting in an MAE of **0 ticks**.
 
