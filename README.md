@@ -110,16 +110,35 @@ The final evaluation is the most critical part of the experiment. Both the train
 
 * **Metric:** Mean Absolute Error (MAE) in MIDI ticks.
 
-### Theoretical "Perfect" Result
+### Analysis Upper Bound of Performance: Theoretical "Perfect" Result
 
 
+* A perfect **Model A** (the copycat) would output the quantized input, resulting in an MAE equal to the average quantization error of the dataset. **In the dataset used for this experiment, the 1/32 quantization distorted the original length of song by an average of 9.78 ticks, so the theoretical performance upper bound of Model A is about 9.78 ticks.**
 
-* A perfect **Model A** (the copycat) would output the quantized input, resulting in an MAE equal to the average quantization error of the dataset. **In the dataset used for this experiment, the 1/32 quantization distorted the original performance by an average of 3.78 ticks, so the theoretical performance upper bound of Model A is about 3.78 ticks.**
+    * NOTE: The `9.78 ticks` value represents the **difficulty level** or the **magnitude of the challenge** that Model B has to solve.
 
+      **The Problem:** "Restore the original rhythm from a quantized input that is, on average, 9.78 ticks away from the original."
+
+      **The Difficulty:** To solve this problem perfectly, the model must successfully correct for those **9.78 ticks** of error.
 
 * A perfect **Model B** (the artist) would perfectly reconstruct the original performance, resulting in an MAE of **0 ticks**.
 
 Our goal is to show that our real-world Model B has a significantly lower MAE than Model A, demonstrating that it has successfully learned to apply the singer's rhythmic style.
+
+
+
+## Result
+
+after training about 30 epochs
+
+- Final Test MAE for Model A (Control): 10.1670 ticks
+- Final Test MAE for Model B (Your Method): 7.6834 ticks
+
+The maximum possible improvement for Model A is only 10.16 - 9.78 = 0.38 ticks. It has almost no room to get better because it has learned the wrong, simple strategy. Task that model A should solve is pretty easy, because it is just identity function.
+
+The maximum possible improvement for Model B is the full 7.68 ticks. We can improve model B so that decrease error 7.68, by increasing model capacity or changing this GRU architecture to more powerful model architecture like Transformer.
+
+
 
 
 ## Reproducible Environment with Hugging Face Spaces
@@ -127,3 +146,5 @@ Our goal is to show that our real-world Model B has a significantly lower MAE th
 The easiest way to run this entire experiment without any local setup is by using the provided Hugging Face Space. It launches a JupyterLab instance in a pre-configured Docker environment with the correct Python version and all dependencies installed.
 
 * **Live Executable Notebook:** [https://huggingface.co/spaces/ccss17/toy-duration-predictor](https://huggingface.co/spaces/ccss17/toy-duration-predictor)
+
+ 
