@@ -1,3 +1,11 @@
+---
+title: Toy Duration Predictor Notebook
+emoji: 🎵
+colorFrom: blue
+colorTo: indigo
+sdk: docker
+pinned: false
+---
 
 # A Toy Duration Predictor to Validate a Rhythm Regularization Algorithm
 
